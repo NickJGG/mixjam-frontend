@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root{
+    --red: rgb(201, 62, 78);
+	--red-hover: #f87e80;
+	--red-filter: invert(50%) sepia(85%) saturate(1210%) hue-rotate(319deg) brightness(100%) contrast(110%);
+	--blue: #1d6cab;
+	--blue-hover: #2b84cc;
+	--gold: #cf9a05;
+	--gold-hover: #f4b912;
+	--yellow-filter: invert(70%) sepia(100%) saturate(584%) hue-rotate(351deg) brightness(98%) contrast(94%);
+    --green: #39b057;
+	--green-filter: brightness(67%) sepia(100) saturate(40) hue-rotate(105deg);
+}
+
+*{
+    padding: 0;
+    margin: 0;
+
+    box-sizing: border-box;
+}
+html, body{
+    height: 100%;
+}
+body{
+    font-family: 'Roboto', sans-serif;
+
+    background-color: rgb(20, 20, 22);
+
+    color: white;
+}
+
+.nav-section{
+    display: flex;
+    align-items: center;
+}
+
+
+
+::-webkit-scrollbar { width: 4px; height: 3px; }
+::-webkit-scrollbar-track {  background-color: transparent; }
+::-webkit-scrollbar-track-piece { background-color: transparent; }
+::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px; }
+::-webkit-scrollbar-corner { background-color: #646464; }
+::-webkit-resizer { background-color: #666; }
+::-webkit-scrollbar-button { display: none; }
+
+a, a:link, a:hover, a:visited{
+    text-decoration: none;
+    color: unset;
+}

@@ -1,25 +1,108 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Navigate } from 'react-router';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { withCookies, Cookies } from 'react-cookie';
+
+import { instanceOf } from 'prop-types';
+
+import axios from 'axios';
+
+import Authorized from './pages/Authorized';
+import Unauthorized from './pages/Unauthorized';
+import Auth from './pages/Auth';
+
+class App extends React.Component {
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    }
+
+    constructor(props){
+        super(props);
+
+        const { cookies } = props;
+
+        this.state = {
+            auth: {
+                token: cookies.get('auth_token') || null
+            },
+            party: {}
+        }
+        
+        this.onAuth = this.onAuth.bind(this);
+        
+        this.setToken = this.setToken.bind(this);
+        this.removeToken = this.removeToken.bind(this);
+        this.getComponents = this.getComponents.bind(this);
+    }
+
+    componentDidMount(){
+        const { cookies } = this.props,
+            token = cookies.get('auth_token');
+
+        this.setHeaders(token);
+        //this.setToken(token)
+    }
+
+    onAuth(token){
+        this.setToken(token);
+    }
+
+    setToken(token){
+        if (token == null)
+            return;
+
+        const { cookies } = this.props;
+        cookies.set('auth_token', token, { path: '/', maxAge: 10 * 365 * 24 * 3600 });
+
+        this.setState({ 
+            ...this.state,
+            auth: { 
+                ...this.state.auth,
+                token: token 
+            } 
+        });
+
+        this.setHeaders(token);
+    }
+    setHeaders(token){
+        axios.defaults.headers.common = {
+            Authorization: 'Token ' + token
+        };
+    }
+    removeToken(){
+        const { cookies } = this.props;
+        cookies.remove('auth_token', { path: '/' });
+
+        this.setState({ auth: { } });
+
+        axios.defaults.headers.common = {
+            Authorization: null
+        };
+    }
+
+    getComponents(){
+        if (this.state.auth.token != null)
+            return (
+                <Auth 
+                    auth = { this.state.auth }
+
+                    onLogout = { this.removeToken } 
+                />
+            );
+        else
+            return (
+                <Unauthorized auth = { this.state.auth } onAuth = { this.onAuth } />  
+            );
+    }
+ 
+    render(){
+        return (
+            <Router>
+                { this.getComponents() }
+            </Router>
+        );
+    }
 }
 
-export default App;
+export default withCookies(App);

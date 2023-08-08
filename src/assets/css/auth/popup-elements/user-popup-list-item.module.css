@@ -1,0 +1,29 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    grid-gap: .8rem;
+
+    padding: .8rem;
+}
+
+.user{
+    display: flex;
+    align-items: center;
+    grid-gap: .6rem;
+}
+.user__username{
+    font-weight: 500;
+    font-size: 1rem;
+    color: white;
+    text-shadow: 0 0 10px rgba(0, 0, 0, .3);
+}
+
+.actions{
+    width: 100%;
+
+    display: flex;
+    grid-gap: .8rem;
+}
+.actions > *{
+    width: 100%;
+}

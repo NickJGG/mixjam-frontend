@@ -1,0 +1,8 @@
+.listing--user{
+    --width: 4rem;
+    --min-height: 4rem;
+}
+
+.listing__body{
+    align-items: center;
+}

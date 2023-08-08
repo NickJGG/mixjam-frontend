@@ -1,0 +1,135 @@
+#landing{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#landing-header{
+    width: 90%;
+    min-height: 20em;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    padding: 8rem 0;
+}
+
+#welcome{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+#welcome-title{
+	margin: 0;
+
+	font-weight: 700;
+	font-size: 2.6rem;
+	text-align: left;
+}
+#welcome-para{
+	margin: 10px 0;
+
+	font-size: 14px;
+	text-align: left;
+	color: #ccc;
+}
+#account-buttons{
+	display: flex;
+	align-items: center;
+	
+	margin-top: 20px;
+	
+	font-weight: 500;
+	font-size: 14px;
+}
+.account-button{
+	min-width: 4em;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	padding: .7em 1.2em;
+	
+	border-radius: 3px;
+	
+	cursor: pointer;
+}
+.account-button img{
+	width: 20px;
+	height: 20px;
+}
+.account-button p{
+	font-size: .9rem;
+    text-transform: uppercase;
+}
+#button-separator{
+	margin: 0 15px;
+}
+#welcome-image{
+	background-color: var(--medium-black);
+
+	box-shadow: 0 0 14px rgba(0, 0, 0, .2);
+}
+#welcome-image img{
+	width: 100%;
+	height: auto;
+}
+
+.welcome-image{
+	width: 100%;
+
+	padding-top: calc((9 / 16) * 100%);
+
+	background-color: rgb(35, 35, 37);
+
+	border-radius: 3px;
+}
+
+#site-showcase{
+    width: 100%;
+
+	display: flex;
+	justify-content: center;
+
+	padding: 9rem 0 3rem 0;
+
+    background-color: rgb(35, 35, 37);
+	clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+}
+#showcase-wrapper{
+	width: 90%;
+
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.showcase{
+	width: 15rem;
+
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	margin: 1rem;
+	padding: 2rem;
+
+	border-top: 4px solid var(--red);
+}
+.showcase img{
+	height: 2.8rem;
+}
+.showcase-title{
+	margin-top: 1rem;
+
+	font-weight: 500;
+	font-size: 1.6rem;
+	text-align: center;
+}
+.showcase-desc{
+	margin-top: 1rem;
+
+	font-size: .9rem;
+	text-align: center;
+	color: #bbb;
+}

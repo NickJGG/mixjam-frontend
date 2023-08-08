@@ -1,0 +1,25 @@
+#search{
+    display: flex;
+    flex-direction: column;
+    grid-gap: 1rem;
+    
+    margin-bottom: 1rem;
+}
+
+#search__input{
+    width: 100%;
+
+    padding: .7rem;
+
+    background-color: rgb(36, 36, 39);
+
+    font-family: Roboto;
+    font-size: 1rem;
+    color: white;
+
+    border: none;
+    outline: none;
+    border-radius: .4rem;
+
+    overflow: hidden;
+}

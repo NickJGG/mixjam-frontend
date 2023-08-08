@@ -1,0 +1,37 @@
+.listing--actionable{
+    --min-height: calc(var(--width) + 2.6rem) !important;
+}
+.listing--actionable .listing__body{ 
+    height: 100%; 
+
+    align-items: center;
+    justify-content: center;
+    grid-gap: .6rem;
+
+    padding: 1rem;
+
+    cursor: pointer;
+}
+.listing--actionable .listing__icon{
+    width: 2rem;
+    height: 2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.listing--actionable .listing__icon img{
+    height: 100%;
+}
+
+.listing--actionable .listing__details{
+    padding: 0;
+}
+.listing--actionable .listing__details p{
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-align: center;
+    /* white-space: unset; */
+}
+
+.listing--actionable:hover .listing__details{ padding: 0 !important; }

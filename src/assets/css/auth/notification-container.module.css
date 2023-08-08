@@ -1,0 +1,18 @@
+#notification-container{
+    width: calc(20rem + 2rem);
+
+    position: absolute;
+    bottom: 0;
+    left: var(--nav-width);
+
+    padding: 1rem;
+
+    z-index: 20;
+}
+#notification-container > .notification{ top: 0; }
+.notification-container--removing > .notification{
+    top: 50vh;
+
+    transition: top .4s ease-in;
+}
+#notification-container .notification__wrapper{ position: unset !important; }

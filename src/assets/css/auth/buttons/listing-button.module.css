@@ -1,0 +1,48 @@
+.listing__button{
+    --hover-color: rgba(0, 0, 0, .15);
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: .5rem 0;
+
+    border-radius: .4rem;
+
+    overflow: hidden;
+    transition: transform .1s ease;
+    cursor: pointer;
+}
+.listing__button:hover{
+    background-color: var(--hover-color);
+
+    transform: scale(1.04);
+}
+.listing__button:active{ transform: scale(1); }
+.listing__button--default{ --hover-color: rgba(0, 0, 0, .35) !important; background-color: rgba(0, 0, 0, .2); }
+.listing__button--left{ justify-content: flex-start; padding: .5rem; }
+
+.listing__button img{
+    width: 1.2rem;
+    height: 1.2rem;
+
+    display: block;
+
+    border-radius: .3rem;
+}
+.listing__button p{
+    margin-left: .4rem;
+    margin-top: 2px;
+
+    font-weight: 500;
+    font-size: .8rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    overflow-x: hidden;
+}
+
+.listing__button.green{ --hover-color: var(--green); }
+.listing__button.red{ --hover-color: var(--red); }

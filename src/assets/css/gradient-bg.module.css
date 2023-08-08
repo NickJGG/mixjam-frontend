@@ -1,0 +1,92 @@
+.gradient-bg{ 
+    --background-start-color: rgb(31, 31, 34);
+    --background-end-color: rgb(38, 38, 41);
+    --hover-start-color: rgb(40, 40, 42);
+    --hover-end-color: rgb(57, 56, 56);
+    --active-start-color: rgb(37, 37, 40);
+    --active-end-color: rgb(46, 46, 49);
+    --pressed-start-color: rgb(68, 68, 68);
+    --pressed-end-color: rgb(49, 49, 50);
+    --start-color: var(--hover-start-color);
+    --end-color: var(--hover-end-color);
+
+    position: relative;
+}
+
+.gradient-bg--fading:after{ opacity: 0; }
+.gradient-bg--fading:hover:after{ opacity: 1; }
+.gradient-bg.static{ background: linear-gradient(310deg, var(--start-color) 0%, var(--end-color) 100%); }
+.gradient-bg--default:before, .gradient-bg:not(.static):after{
+    --start-color: inherit;
+    --end-color: inherit;
+    --background-start-color: inherit;
+    --background-end-color: inherit;
+    --hover-start-color: inherit;
+    --hover-end-color: inherit;
+    --active-start-color: inherit;
+    --active-end-color: inherit;
+
+    content: '';
+
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    border-radius: inherit;
+}
+.gradient-bg--default:before{
+    z-index: -100;
+
+    background: linear-gradient(310deg, var(--background-start-color) 0%, var(--background-end-color) 100%);
+
+    opacity: 1;
+}
+.gradient-bg--active:not(:hover){
+    --start-color: var(--active-start-color);
+    --end-color: var(--active-end-color);
+}
+.gradient-bg:not(.gradient-bg--no-pressing):active{
+    --start-color: var(--pressed-start-color) !important;
+    --end-color: var(--pressed-end-color) !important;
+}
+.gradient-bg:not(.static):after{
+    --rotation: 310deg;
+    --start-percentage: 0%;
+
+    z-index: -1;
+
+    background: linear-gradient(var(--rotation), var(--start-color) var(--start-percentage), var(--end-color) 100%);
+
+    opacity: 0;
+
+    transition: inherit;
+}
+.gradient-bg:hover:after, .gradient-bg--active:after{ opacity: 1 !important; }
+
+.gradient-bg--red{ 
+    --hover-start-color: rgb(201, 62, 78);
+    --hover-end-color: rgb(254, 97, 118); 
+    --active-start-color: rgb(156, 54, 66); 
+    --active-end-color: rgb(255, 85, 109);
+    --pressed-start-color: rgb(204, 76, 91);
+    --pressed-end-color: rgb(255, 111, 131); 
+}
+.gradient-bg--blue{ 
+    --hover-start-color: #4066d9;
+    --hover-end-color: #4668cf;
+    --active-start-color: #2b50c1;
+    --active-end-color:  #3f6aec;
+    --pressed-start-color: #418ece;
+    --pressed-end-color: #56a2df;
+}
+.gradient-bg--green{ 
+    --hover-start-color: #338951;
+    --hover-end-color: #4fb268;
+    --active-start-color: #338951;
+    --active-end-color: #4fb268;
+    --pressed-start-color: #58b36f;
+    --pressed-end-color: #4ccc6c;
+}

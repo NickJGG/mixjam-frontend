@@ -1,0 +1,28 @@
+.popup__element__header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    grid-gap: .6rem;
+}
+.popup__element__header__image{
+    width: 8rem;
+    height: 8rem;
+
+    border-radius: .4rem;
+
+    overflow: hidden;
+}
+.popup__element__header__image img{ height: 100%; }
+.popup__element__header__details{
+    display: flex;
+    flex-direction: column;
+}
+.popup__element__header__details__name{
+    font-weight: 700;
+    font-size: 2rem;
+}
+.popup__element__header__actions{
+    display: flex;
+    align-items: center;
+    grid-gap: .4rem;
+}
