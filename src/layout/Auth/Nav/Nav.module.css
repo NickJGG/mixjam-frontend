@@ -1,0 +1,158 @@
+#nav{
+    width: var(--nav-width);
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    justify-items: center;
+    grid-area: nav;
+
+    background-color: rgb(20, 20, 22);
+    /* border-right: 2px solid rgb(45, 45, 47); */
+
+    z-index: 19;
+
+    overflow: hidden;
+    transition: width .1s ease;
+}
+.nav--collapsed{ --nav-width: min-content; }
+
+.nav__section{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    grid-gap: 1rem;
+
+    padding: 1rem;
+}
+/* .nav__section:nth-of-type(2){ overflow-y: scroll; } */
+.nav__section > *{
+    width: 100%;
+}
+
+.nav__section__collection{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: .6rem;
+}
+.nav__section__collection--right{ justify-items: end; }
+.nav__section__collection--row .nav__section__collection__elements{ flex-direction: row; }
+.nav__section__collection--row .nav__button__wrapper{ flex-shrink: 2; }
+.nav__section__collection--row .nav__button__wrapper--double{ flex-shrink: 1;}
+.nav__section__collection--row .nav__button > p{ display: none; }
+.nav__section__collection--row .nav__button{ width: auto; grid-template-columns: unset; justify-content: center; }
+.nav__section__collection--hidden-name > .nav__section__collection__name{ display: none; }
+.nav__section__collection__name{
+    font-size: .8rem;
+    font-weight: 500;
+
+    filter: brightness(.7);
+}
+.nav__section__collection__elements{
+    display: flex;
+    flex-direction: column;
+    grid-gap: .4rem;
+}
+
+.nav__button__wrapper{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+.nav__button__wrapper--reverse{ flex-direction: column-reverse; }
+.nav__button__wrapper--expanded:before{
+    content: '';
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgb(29, 29, 32);
+
+    border-radius: .4rem;
+
+    overflow: hidden;
+    z-index: 1;
+}
+.nav__button__wrapper--expanded > .nav__button__wrapper__buttons{ display: flex; }
+.nav__button__wrapper__buttons{
+    display: none;
+    flex-direction: column;
+    grid-gap: .4rem;
+}
+.nav__button{
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+
+    padding: .7rem;
+
+    border-radius: .7rem;
+
+    transition: transform .1s ease,
+                padding .1s ease;
+
+    cursor: pointer;
+    user-select: none;
+    z-index: 2;
+}
+.nav__button:hover{ transform: scale(1.04); }
+.nav__button:active{ transform: scale(1); }
+.nav__button--double{width: 100%;}
+.nav__button__wrapper--expanded .nav__button--expando{ margin-bottom: .4rem; box-shadow: 0 0 20px rgba(0, 0, 0, .1); }
+.nav__button__wrapper--expanded.nav__button__wrapper--reverse .nav__button--expando{ margin: .4rem 0 0 0; }
+
+.nav__section:not(#nav__header) .nav__button:not(.nav__button--active):not(:hover) > *{
+    filter: brightness(.8);
+}
+
+.nav__button--hidden-name p{ display: none; }
+
+.nav__button > img{ 
+    height: 1.3rem;
+
+    border-radius: .3rem;
+
+    overflow: hidden;
+
+    transition: transform .1s ease;
+}
+.nav__button > img:last-of-type{ display: none; margin: 0 .2rem; }
+.nav__button--expando > img:last-of-type{
+    height: .7rem;
+
+    display: unset;
+
+    transform: rotate(270deg);
+    transition: transform .1s ease;
+}
+.nav__button__wrapper--reverse .nav__button--expando img:last-of-type{ transform: rotate(90deg); }
+.nav__button__wrapper--expanded > .nav__button--expando img:last-of-type{ transform: rotate(90deg); }
+.nav__button__wrapper--reverse.nav__button__wrapper--expanded > .nav__button--expando img:last-of-type{ transform: rotate(270deg); }
+
+.nav__button--short > img{ height: .8rem; margin-right: 0; }
+.nav__button > p{
+    font-size: .9rem;
+    font-weight: 500;
+}
+.nav__button p:first-of-type{
+    margin-left: 1rem;
+}
+
+.nav--collapsed .nav__button{ width: max-content; padding: .7rem; }
+.nav--collapsed .nav__button img:last-of-type{ display: none; }
+.nav--collapsed .nav__section{ padding-right: 0; }
+.nav--collapsed .nav__section__collection--row .nav__section__collection__elements{ flex-direction: column; }
+.nav--collapsed .nav__section__collection__name, .nav--collapsed .nav__button img{ margin-right: 0; }
+.nav--collapsed .nav__section__collection__elements--short .nav__button img{ margin-right: 0; transform: rotate(180deg); }
+.nav--collapsed .nav__button p{ display: none; }
+.nav--collapsed .nav__section__collection__name{ overflow: hidden; visibility: hidden; }
+.nav--collapsed .nav__section__collection--right { justify-items: center; }

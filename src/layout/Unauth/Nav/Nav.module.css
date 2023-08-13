@@ -1,0 +1,12 @@
+#nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: .8rem 1rem;
+}
+
+.nav__group{
+    display: flex;
+    align-items: center;
+}

@@ -2,10 +2,8 @@
     width: calc(20rem + 2rem);
 
     position: absolute;
-    bottom: 0;
-    left: var(--nav-width);
-
-    padding: 1rem;
+    bottom: calc(var(--player-height) + 5rem);
+    left: 1.2rem;
 
     z-index: 20;
 }

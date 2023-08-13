@@ -1,0 +1,36 @@
+.saved__header{
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 1rem;
+}
+
+.filter__group__collection{
+    width: 100%;
+
+    display: flex;
+    grid-gap: .6rem;
+}
+.filter__group{
+    width: fit-content;
+
+    display: flex;
+    align-items: center;
+    grid-gap: .6rem;
+}
+.filter{
+    padding: .5rem .8rem;
+
+    font-size: .8rem;
+
+    border: 1px solid white;
+    border-radius: .4rem;
+    overflow: hidden;
+
+    cursor: pointer;
+
+    transition: transform .08s ease;
+}
+.filter:hover{ transform: scale(1.03); }
+.filter:active{ transform: scale(1); }
+.filter--selected, .filter:hover{ background-color: white; color: black; }

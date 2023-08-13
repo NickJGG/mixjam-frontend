@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Navigate } from 'react-router';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Navigate } from "react-router";
 
-import { withCookies, Cookies } from 'react-cookie';
+import { withCookies, Cookies } from "react-cookie";
 
-import { instanceOf } from 'prop-types';
+import { instanceOf } from "prop-types";
 
-import axios from 'axios';
+import axios from "axios";
 
-import Authorized from './pages/Authorized';
-import Unauthorized from './pages/Unauthorized';
-import Auth from './pages/Auth';
+import Unauthorized from "layout/Unauth/Unauthorized";
+import Auth from "layout/Auth/Auth";
+
+import "./App.css";
 
 class App extends React.Component {
     static propTypes = {
@@ -24,7 +25,7 @@ class App extends React.Component {
 
         this.state = {
             auth: {
-                token: cookies.get('auth_token') || null
+                token: cookies.get("auth_token") || null
             },
             party: {}
         }
@@ -38,7 +39,7 @@ class App extends React.Component {
 
     componentDidMount(){
         const { cookies } = this.props,
-            token = cookies.get('auth_token');
+            token = cookies.get("auth_token");
 
         this.setHeaders(token);
         //this.setToken(token)
@@ -53,7 +54,7 @@ class App extends React.Component {
             return;
 
         const { cookies } = this.props;
-        cookies.set('auth_token', token, { path: '/', maxAge: 10 * 365 * 24 * 3600 });
+        cookies.set("auth_token", token, { path: "/", maxAge: 10 * 365 * 24 * 3600 });
 
         this.setState({ 
             ...this.state,
@@ -67,12 +68,12 @@ class App extends React.Component {
     }
     setHeaders(token){
         axios.defaults.headers.common = {
-            Authorization: 'Token ' + token
+            Authorization: "Token " + token
         };
     }
     removeToken(){
         const { cookies } = this.props;
-        cookies.remove('auth_token', { path: '/' });
+        cookies.remove("auth_token", { path: "/" });
 
         this.setState({ auth: { } });
 

@@ -1,0 +1,5 @@
+.popup__body{
+    display: flex;
+    flex-direction: column;
+    grid-gap: .7rem;
+}

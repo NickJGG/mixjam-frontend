@@ -1,0 +1,41 @@
+.layout__button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: .5rem;
+
+    padding: .7rem;
+
+    border-radius: .4rem;
+
+    overflow: hidden;
+    transition: transform .1s ease;
+    cursor: pointer;
+
+    backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+    will-change: transform;
+}
+.layout__button--disabled{
+    opacity: .2;
+    cursor: unset;
+}
+#player .layout__button{
+    width: var(--player-height);
+    height: var(--player-height);
+}
+.layout__button:not(.layout__button--disabled):hover{ transform: scale(1.04) translate3d( 0, 0, 0) perspective(1px); }
+.layout__button:not(.layout__button--disabled):active{ transform: scale(1) translate3d( 0, 0, 0) perspective(1px); }
+.layout__button--label{ 
+    width: fit-content; 
+
+    padding-right: 1rem;
+
+    font-weight: 500;
+    font-size: .9rem;
+}
+.layout__button--primary{
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+.layout__button img{ height: 1.3rem; }

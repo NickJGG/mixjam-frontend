@@ -8,10 +8,9 @@
     height: 100%;
 
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto;
-    grid-template-areas: "main-content"
-                         "player";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "nav main-content";
 
     overflow: hidden;
 }
@@ -22,31 +21,31 @@
 
     display: grid;
     grid-area: main-content;
-    grid-template-columns: var(--nav-width) 1fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
 
     position: relative;
 
     overflow: hidden;
 }
-.nav--collapsed{ --nav-width: min-content; }
 
 /* #region PLAYER */
 
     #player{
-        width: 100%;
-
         display: flex;
+        flex: 1;
         flex-direction: column;
-        grid-area: player;
 
         padding: .7rem;
+        margin: 0 2rem 1rem 1rem;
 
-        /* box-shadow: 0px 0px 25px rgb(20, 20, 22);    */
+        box-shadow: 0px 0px 25px rgb(20, 20, 22);   
 
         background-color: rgb(32, 32, 35);
 
         /* border-top: 2px solid rgb(35, 35, 37); */
+
+        border-radius: .3rem;
 
         z-index: 19;
     }

@@ -1,7 +1,7 @@
-import cssBlock from "../assets/css/auth/block.module.css";
+import BlockCSS from "layout/Auth/Block/Block.module.css";
 
 const getRowLength = () => {
-    let grid = document.getElementsByClassName(cssBlock["section__body"])[0];
+    let grid = document.getElementsByClassName(BlockCSS["section__body"])[0];
 
     if (grid == null)
         return 6;
