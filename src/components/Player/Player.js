@@ -1,9 +1,6 @@
-import imgPlay from "assets/img/icons/play-white-96.png";
-import imgPause from "assets/img/icons/pause-white-96.png";
-import imgFastForward from "assets/img/icons/fastforward-white-96.png";
-import imgRewind from "assets/img/icons/rewind-white-96.png";
-import imgPhone from "assets/img/icons/phone-white-88.png";
-import imgQueue from "assets/img/icons/queue-white-outline-96.png";
+import { useContext } from "react";
+
+import PageContext from "contexts/PageContext";
 
 import PlayerProgressContainer from "components/Player/PlayerProgressContainer";
 import LayoutButton from "components/LayoutButton/LayoutButton";
@@ -11,7 +8,19 @@ import QueuePopup from "components/Popup/QueuePopup/QueuePopup";
 
 import PlayerCSS from "./Player.module.css";
 
+import imgPlay from "assets/img/icons/play-white-96.png";
+import imgPause from "assets/img/icons/pause-white-96.png";
+import imgFastForward from "assets/img/icons/fastforward-white-96.png";
+import imgRewind from "assets/img/icons/rewind-white-96.png";
+import imgPhone from "assets/img/icons/phone-white-88.png";
+import imgQueue from "assets/img/icons/queue-white-outline-96.png";
+
 const Player = (props) => {
+    const {
+        openPopupContainer,
+        closePopupContainer,
+    } = useContext(PageContext);
+
     const getProgressPercentage = () => {
         return props.player?.percentage * 100;
     }
@@ -89,9 +98,9 @@ const Player = (props) => {
                     <LayoutButton
                         defaultImagePath = { imgQueue }
 
-                        onClick = { () => props.openPopupContainer(
+                        onClick = { () => openPopupContainer(
                             <QueuePopup
-                                closePopupContainer = { props.closePopupContainer }
+                                closePopupContainer = { closePopupContainer }
                             />
                         ) }
                     />

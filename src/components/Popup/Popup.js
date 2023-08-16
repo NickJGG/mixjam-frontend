@@ -15,6 +15,8 @@ const Popup = (props) => {
     const {
         previousPopup,
         nextPopup,
+        closePopupContainer,
+        popupContainerRef,
     } = useContext(PageContext);
 
     return (
@@ -32,18 +34,22 @@ const Popup = (props) => {
                     <LayoutButton 
                         name = "Previous"
                         defaultImagePath = { imgPrevious }
-                        // disabled = { true }
+                        disabled = { popupContainerRef.current.currentElementIndex <= 0 }
+
                         onClick = { previousPopup }
                     />
                     <LayoutButton 
                         name = "Next"
                         defaultImagePath = { imgNext }
+                        disabled = { popupContainerRef.current.currentElementIndex >= popupContainerRef.current.elements.length - 1 }
+
                         onClick = { nextPopup }
                     />
                     <LayoutButton 
                         name = "Close"
                         defaultImagePath = { imgClose }
-                        onClick = { props.closePopupContainer }
+
+                        onClick = { closePopupContainer }
                     />
                 </div>
             </div>

@@ -50,8 +50,6 @@ const AccountSettingsPopup = (props) => {
                     </div>
                 </div>
             )}
-
-            closePopupContainer = { props.closePopupContainer }
         />
     );
 }

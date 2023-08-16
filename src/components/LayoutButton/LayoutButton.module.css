@@ -38,4 +38,6 @@
     font-weight: 700;
     font-size: 1.4rem;
 }
-.layout__button img{ height: 1.3rem; }
+.layout__button img{ 
+    height: 1.3rem; border-radius: .3rem; 
+}

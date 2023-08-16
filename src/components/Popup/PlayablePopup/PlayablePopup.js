@@ -16,13 +16,22 @@ const PlayablePopup = (props) => {
         addToQueue,
         playTrack,
         openPopupContainer,
+        previousPopContainer,
+        nextPopupContainer,
     } = useContext(PageContext);
 
     const getMainArtist = () => {
         if (props.playable.type == "artist")
             return props.playable;
-        
+
         return props.playable.artists[0];
+    }
+
+    const getMainArtistImage = () => {
+        if (props.playable.type == "album")
+            return props.tracks?.length > 0 ? props.tracks[0].artists[0].images[0].url : props.image;
+
+        return getMainArtist().images[0].url;
     }
 
     let saveTerms = {
@@ -42,9 +51,7 @@ const PlayablePopup = (props) => {
 
     const openArtist = () => {
         openPopupContainer((
-            <PageContext.Provider value = {{ addToQueue, playTrack, openPopupContainer }}>
-                <ArtistPopup artist = { getMainArtist() } />
-            </PageContext.Provider>
+            <ArtistPopup artist = { getMainArtist() } />
         ));
     }
 
@@ -64,7 +71,7 @@ const PlayablePopup = (props) => {
                             ["artist", "playlist"].includes(props.playable.type) ? <></> : 
                             <LayoutButton 
                                 label = { getMainArtist().name }
-                                defaultImagePath = { getMainArtist().images[0].url }
+                                defaultImagePath = { getMainArtistImage() }
                                 onClick = { openArtist }
                             />
                         }

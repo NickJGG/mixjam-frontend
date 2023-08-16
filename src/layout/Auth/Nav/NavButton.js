@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { Link } from "react-router-dom";
+
+import PageContext from 'contexts/PageContext';
 
 import cssFromArray from 'utils/cssFromArray';
 
@@ -11,12 +13,17 @@ import cssGradientBg from "assets/css/gradient-bg.module.css";
 import imgCollapse from "assets/img/icons/collapse-white-outline-96.png";
 
 const NavButton = (props) => {
+    const {
+        updatePopupContainer,
+    } = useContext(PageContext);
+
     const [expanded, setExpanded] = useState(props.expanded);
     const location = useLocation();
 
     useEffect(() => {
-        if (props.updatePopupContainer != null)
-            props.updatePopupContainer(props.popupElement);
+        if (props.popupDependencies == undefined) return;
+
+        updatePopupContainer(props.popupElement);
     }, [props.popupDependencies]);
 
     const cssButton = () => {

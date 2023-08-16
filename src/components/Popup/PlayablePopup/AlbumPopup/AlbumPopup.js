@@ -29,6 +29,7 @@ const AlbumPopup = (props) => {
             playable = { props.album }
             title = { props.album?.name }
             image = { props.album?.images[0].url }
+            tracks = { tracks }
         >
             <Block label = "Tracks">
                 <BlockSection 

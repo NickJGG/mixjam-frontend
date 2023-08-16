@@ -22,8 +22,6 @@ const NotificationsPopup = (props) => {
                     )) }
                 </div>
             )}
-
-            closePopupContainer = { props.closePopupContainer }
         />
     );
 }

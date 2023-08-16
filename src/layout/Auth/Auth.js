@@ -156,6 +156,25 @@ const Auth = (props) => {
     const openPopupContainer = (element, open=true) => {
         // console.log(`[CURRENT] currentElementIndex: ${popupContainerRef.current.currentElementIndex} \n[NEW]     currentElementIndex: ${popupContainerRef.current.currentElementIndex + 1}`);
 
+        element = (
+            <PageContext.Provider value = {{
+                getCurrentlyPlayingType,
+                getCurrentPlayingURI,
+                getCurrentlyPlayingContextURI,
+                addToQueue,
+                playTrack,
+                playContext,
+                openPopupContainer,
+                closePopupContainer,
+                updatePopupContainer,
+                previousPopup,
+                nextPopup,
+                popupContainerRef,
+            }}>
+                { element }
+            </PageContext.Provider>
+        );
+
         setPopupContainer(prevPopupContainer => ({
             ...prevPopupContainer,
             elements: prevPopupContainer.elements.slice(0, prevPopupContainer.currentElementIndex + 1).concat([element]),
@@ -166,16 +185,24 @@ const Auth = (props) => {
     const closePopupContainer = () => {
         // console.log(`[CURRENT] currentElementIndex: ${popupContainerRef.current.currentElementIndex} \n[NEW]     currentElementIndex: ${popupContainerRef.current.currentElementIndex - 1}`);
 
+        // if (popupContainer.currentElementIndex > 0) return previousPopup();
+
         setPopupContainer(prevPopupContainer => ({
             ...prevPopupContainer,
             elements: [],
-            currentElementIndex: prevPopupContainer.currentElementIndex - 1,
+            currentElementIndex: -1,
             isOpen: false,
         }));
     }
     const updatePopupContainer = (element) => {
-        if (popupContainer.element?.key == element.key)
-            openPopupContainer(element, popupContainer.isOpen);
+        if (popupContainer.elements[popupContainer.currentElementIndex]?.key != element.key) return;
+
+        setPopupContainer(prevPopupContainer => ({
+            ...prevPopupContainer,
+            elements: prevPopupContainer.elements.slice(0, prevPopupContainer.currentElementIndex - 1).concat([element]),
+        }));
+
+        // openPopupContainer(element, popupContainer.isOpen);
     }
     const previousPopup = () => {
         // console.log(`[CURRENT] currentElementIndex: ${popupContainerRef.current.currentElementIndex} \n[NEW]     currentElementIndex: ${Math.max(popupContainerRef.current.currentElementIndex - 1, 0)}`);
@@ -554,7 +581,9 @@ const Auth = (props) => {
             if (seconds < 0){
                 finished();
                 
-                getCurrentSocket().send('song_end');
+                getCurrentSocket().send("track_end", {
+                    "track_uri": getCurrentPlayingURI()
+                });
                 
                 window.clearInterval(interval);
             }
@@ -576,36 +605,33 @@ const Auth = (props) => {
 
     return (
         <div id = { AuthCSS["authorized-app"] }>
-            <Nav 
-                user = { user }
-                party = { party }
-                friends = { user.friends }
-                collapsed = { navCollapsed }
+            <PageContext.Provider value = {{
+                getCurrentlyPlayingType,
+                getCurrentPlayingURI,
+                getCurrentlyPlayingContextURI,
+                addToQueue,
+                playTrack,
+                playContext,
+                openPopupContainer,
+                closePopupContainer,
+                updatePopupContainer,
+                previousPopup,
+                nextPopup,
+            }}>
+                <Nav 
+                    user = { user }
+                    party = { party }
+                    friends = { user.friends }
+                    collapsed = { navCollapsed }
 
-                onLogout = { props.onLogout }
-                onToggleCollapse = { toggleNavCollapse }
-                openPopupContainer = { openPopupContainer }
-                updatePopupContainer = { updatePopupContainer }
-                onNotificationAccept = { acceptNotification }
-                onNotificationIgnore = { ignoreNotification }
-                onPartyInvite = { onPartyInvite }
+                    onLogout = { props.onLogout }
+                    onToggleCollapse = { toggleNavCollapse }
+                    onNotificationAccept = { acceptNotification }
+                    onNotificationIgnore = { ignoreNotification }
+                    onPartyInvite = { onPartyInvite }
+                />
 
-                closePopupContainer = { closePopupContainer }
-            />
-
-            <div id = { AuthCSS["main-content-wrapper"] } className = { navCollapsed != null && navCollapsed ? NavCSS["nav--collapsed"] : "" }>
-                <PageContext.Provider value = {{
-                    getCurrentlyPlayingType,
-                    getCurrentPlayingURI,
-                    getCurrentlyPlayingContextURI,
-                    addToQueue,
-                    playTrack,
-                    playContext,
-                    openPopupContainer,
-                    closePopupContainer,
-                    previousPopup,
-                    nextPopup,
-                }}>
+                <div id = { AuthCSS["main-content-wrapper"] } className = { navCollapsed != null && navCollapsed ? NavCSS["nav--collapsed"] : "" }>
                     <Routes>
                         <Route exact path = "/" element = { <Home user = { user } /> } />
                         <Route path = "/search" element = { <Search user = { user } /> } />
@@ -617,38 +643,36 @@ const Auth = (props) => {
                         <Route path = "/callback/" element = { <Callback /> } />
                         <Route path = "*" element = {<Navigate to = "/" />} />
                     </Routes>
-                </PageContext.Provider>
 
-                <NotificationContainer
-                    notifications = { user?.notifications }
+                    <NotificationContainer
+                        notifications = { user?.notifications }
 
-                    onNotificationAccept = { acceptNotification }
-                    onNotificationIgnore = { ignoreNotification }
+                        onNotificationAccept = { acceptNotification }
+                        onNotificationIgnore = { ignoreNotification }
+                    />
+
+                    <Player 
+                        playback = { playback } 
+                        player = { player }
+                        party = { party }
+
+                        onPlay = { play }
+                        onPause = { pause }
+                        onPrevious = { playPrevious }
+                        onNext = { playNext }
+                        onRefreshDevices = { refreshDevices }
+                        onDeviceSelect = { selectDevice }
+                        onSongProgressUpdate = { updateSongProgress }
+                        onVolumeUpdate = { updateVolume }
+                    />
+                </div>
+
+                <PopupContainer 
+                    container = { popupContainer } 
+                    onOpen = { openPopupContainer }
+                    onClose = { closePopupContainer } 
                 />
-
-                <Player 
-                    playback = { playback } 
-                    player = { player }
-                    party = { party }
-
-                    onPlay = { play }
-                    onPause = { pause }
-                    onPrevious = { playPrevious }
-                    onNext = { playNext }
-                    onRefreshDevices = { refreshDevices }
-                    onDeviceSelect = { selectDevice }
-                    onSongProgressUpdate = { updateSongProgress }
-                    onVolumeUpdate = { updateVolume }
-
-                    openPopupContainer = { openPopupContainer }
-                    closePopupContainer = { closePopupContainer }
-                />
-            </div>
-            <PopupContainer 
-                container = { popupContainer } 
-                onOpen = { openPopupContainer }
-                onClose = { closePopupContainer } 
-            />
+            </PageContext.Provider>
         </div>
     );
 }

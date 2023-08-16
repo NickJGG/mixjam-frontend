@@ -16,9 +16,6 @@ const ArtistPopup = (props) => {
     const [artist, setArtist] = useState(props.artist);
 
     useEffect(async (prevArtistId) => {
-        console.log("prevArtistId", prevArtistId);
-        console.log("newArtistId", props.artist.id);
-
         setSimilarArtists([]);
         setTopTracks([]);
         setAlbums([]);
@@ -53,6 +50,7 @@ const ArtistPopup = (props) => {
                     playables = { topTracks }
                     vertical = { true }
                     columns = "2"
+                    contextUri = { props.artist.uri }
 
                     numPlaceholders = { 10 }
                 />
@@ -71,6 +69,7 @@ const ArtistPopup = (props) => {
                     numPlaceholders = { getRowLength() * 2 }
                 />
             </Block>
+            <input type = "hidden" value = { props.artist?.id } />
         </PlayablePopup>
     );
 }

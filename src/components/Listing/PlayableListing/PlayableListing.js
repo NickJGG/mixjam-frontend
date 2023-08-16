@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { memo, useContext, useState } from "react";
 
 import axios from "axios";
 
@@ -99,14 +99,26 @@ const PlayableListing = (props) => {
                 break;
             case "artist":
             case "track":
-                buttons.push(
-                    <ListingButton
-                        image = { getArtistImage() }
-                        label = { getMainArtist().name }
+                if (props.contextUri?.includes("artist")){
+                    buttons.push(
+                        <ListingButton
+                            image = { getCoverImage() }
+                            label = { props.playable.album.name }
+    
+                            onClick = { openAlbum }
+                        />
+                    );
+                } else {
+                    buttons.push(
+                        <ListingButton
+                            image = { getArtistImage() }
+                            label = { getMainArtist().name }
+    
+                            onClick = { openArtist }
+                        />
+                    );
+                }
 
-                        onClick = { openArtist }
-                    />
-                );
                 buttons.push(
                     <ListingButton
                         image = { imgAddToQueue }
@@ -200,25 +212,34 @@ const PlayableListing = (props) => {
 
     const openArtist = () => {
         openPopupContainer((
-            <PageContext.Provider value = {{ addToQueue, playTrack, openPopupContainer, previousPopup, nextPopup }}>
-                <ArtistPopup artist = { getMainArtist() } />
-            </PageContext.Provider>
+            <ArtistPopup artist = { getMainArtist() } />
         ));
     }
 
     const openAlbum = () => {
+        let album;
+
+        switch (props.playable.type) {
+            case "track":
+                album = props.playable.album;
+
+                break;
+            default:
+                album = props.playable;
+
+                break;
+        }
+
+        console.log(album);
+
         openPopupContainer((
-            <PageContext.Provider value = {{ addToQueue, playTrack, openPopupContainer, previousPopup, nextPopup }}>
-                <AlbumPopup album = { props.playable } />
-            </PageContext.Provider>
+            <AlbumPopup album = { album } />
         ));
     }
 
     const openPlaylist = () => {
         openPopupContainer((
-            <PageContext.Provider value = {{ addToQueue, playTrack, openPopupContainer, previousPopup, nextPopup }}>
-                <PlaylistPopup playlist = { props.playable } />
-            </PageContext.Provider>
+            <PlaylistPopup playlist = { props.playable } />
         ));
     }
 

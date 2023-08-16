@@ -20,8 +20,6 @@ const PartyPopup = (props) => {
                         )) }
                 </PopupUserList>
             )}
-
-            closePopupContainer = { props.closePopupContainer }
         />
     );
 }

@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+
+import PageContext from "contexts/PageContext";
 
 import NavSection from "./NavSection";
 import NavSectionCollection from "./NavSectionCollection";
@@ -23,6 +25,10 @@ import imgSave from "assets/img/icons/favorite-white-outline-96.png";
 import NavCSS from "./Nav.module.css";
 
 const Nav = (props) => {
+    const {
+        openPopupContainer,
+    } = useContext(PageContext);
+
     return (
         <div id = { NavCSS["nav"] } className = { props.collapsed ? NavCSS["nav--collapsed"] : "" }>
             <NavSection onPageSelect = { props.onPageSelect }>
@@ -55,14 +61,11 @@ const Nav = (props) => {
                                 user = { props.user }
                             
                                 onPartyInvite = { props.onPartyInvite }
-
-                                closePopupContainer = { props.closePopupContainer }
                             />
                         ) }
                         popupDependencies = { props.user }
 
-                        updatePopupContainer = { props.updatePopupContainer }
-                        onClick = { props.openPopupContainer } 
+                        onClick = { openPopupContainer } 
                     />
                     <NavButton label = { `Party • ${ props.party?.users?.length || 0 }` } 
                         image = { imgParty }
@@ -71,15 +74,12 @@ const Nav = (props) => {
                                 key = "party-popup"
                                 user = { props.user }
                                 party = { props.party }
-
-                                closePopupContainer = { props.closePopupContainer }
                             />
                         ) }
                         popupDependencies = { props.party }
                         activeCondition = { props.party?.connected }
 
-                        updatePopupContainer = { props.updatePopupContainer }
-                        onClick = { props.openPopupContainer } 
+                        onClick = { openPopupContainer } 
                     />
                     <NavButton label = { `Notifications • ${ props.user?.notifications?.length || 0 }` } 
                         image = { imgNotification }
@@ -89,14 +89,11 @@ const Nav = (props) => {
                                 notifications = { props.user?.notifications } 
                                 onNotificationAccept = { props.onNotificationAccept }
                                 onNotificationIgnore = { props.onNotificationIgnore }
-                
-                                closePopupContainer = { props.closePopupContainer }
                             />
                         ) }
                         popupDependencies = { props.user?.notifications }
 
-                        updatePopupContainer = { props.updatePopupContainer }
-                        onClick = { props.openPopupContainer } 
+                        onClick = { openPopupContainer } 
                     />
                 </NavSectionCollection>
                 <NavSectionCollection label = "Account" hideLabel = { true } row = { true }>
@@ -114,14 +111,11 @@ const Nav = (props) => {
                                 user = { props.user } 
                                 onNotificationAccept = { props.onNotificationAccept }
                                 onNotificationIgnore = { props.onNotificationIgnore }
-                
-                                closePopupContainer = { props.closePopupContainer }
                             />
                         ) }
                         popupDependencies = { props.user }
 
-                        updatePopupContainer = { props.updatePopupContainer }
-                        onClick = { props.openPopupContainer } 
+                        onClick = { openPopupContainer } 
                     />
                 </NavSectionCollection>
             </NavSection>
