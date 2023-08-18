@@ -1,7 +1,6 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState } from "react";
 
-import axios from 'axios';
-
+import getPlaylist from "lib/getPlaylist";
 import getRowLength from "utils/getRowLength";
 
 import Block from "layout/Auth/Block/Block";
@@ -16,9 +15,7 @@ const PlaylistPopup = (props) => {
         setPlaylist({});
 
         let calls = [
-            axios.get(`http://localhost:8000/api/playlists/${ props.playlist?.id }`).then(data => {
-                setPlaylist(data?.data);
-            }),
+            getPlaylist(setPlaylist, props.playlist?.id),
         ];
 
         await Promise.all(calls);

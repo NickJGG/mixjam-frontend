@@ -1,7 +1,6 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState } from "react";
 
-import axios from 'axios';
-
+import getAlbum from "lib/getAlbum";
 import getRowLength from "utils/getRowLength";
 
 import Block from "layout/Auth/Block/Block";
@@ -10,15 +9,14 @@ import BlockSection from "layout/Auth/Block/BlockSection";
 import PlayablePopup from "../PlayablePopup";
 
 const AlbumPopup = (props) => {
-    const [tracks, setTracks] = useState([]);
+    const [album, setAlbum] = useState({
+        ...props.album,
+        tracks: [],
+    });
 
     useEffect(async () => {
-        setTracks([]);
-
         let calls = [
-            axios.get(`http://localhost:8000/api/albums/${ props.album?.id }`).then(data => {
-                setTracks(data?.data.tracks);
-            }),
+            getAlbum(setAlbum, album.id),
         ];
 
         await Promise.all(calls);
@@ -27,14 +25,14 @@ const AlbumPopup = (props) => {
     return (
         <PlayablePopup
             playable = { props.album }
-            title = { props.album?.name }
-            image = { props.album?.images[0].url }
-            tracks = { tracks }
+            title = { album?.name }
+            image = { album?.images[0].url }
+            tracks = { album?.tracks }
         >
             <Block label = "Tracks">
                 <BlockSection 
-                    playables = { tracks }
-                    contextUri = { props.album?.uri }
+                    playables = { album?.tracks }
+                    contextUri = { album?.uri }
                     vertical = { true }
                     columns = "3"
 

@@ -19,7 +19,7 @@ const Register = (props) => {
             
         };
 
-        axios.post('http://localhost:8000/register/', { 
+        axios.post('/register/', { 
             username: username, 
             password: password 
         })
@@ -27,7 +27,7 @@ const Register = (props) => {
                 console.log(data);
 
                 if (data.status == 201){
-                    axios.post('http://localhost:8000/auth/', { 
+                    axios.post('/auth/', { 
                         username: username, 
                         password: password 
                     })

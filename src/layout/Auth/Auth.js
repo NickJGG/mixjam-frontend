@@ -63,7 +63,7 @@ const Auth = (props) => {
         setHeaders(token);
         setToken(token);
 
-        axios.get('http://localhost:8000/api/self/')
+        axios.get('/api/self/')
             .then(data => {
                 let user = data.data.user;
 
@@ -97,7 +97,7 @@ const Auth = (props) => {
             socket: socketObj
         }));
 
-        // axios.get('http://localhost:8000/api/friends/').then(data => {
+        // axios.get('/api/friends/').then(data => {
         //     this.setState({
         //         ...this.state,
         //         friends: data.data
@@ -487,7 +487,7 @@ const Auth = (props) => {
     }
 
     const acceptNotification = (notificationId) => {
-        axios.put(`http://localhost:8000/api/notifications/${ notificationId }/`, null, {
+        axios.put(`/api/notifications/${ notificationId }/`, null, {
             params: {
                 action: "accept",
             }
@@ -504,7 +504,7 @@ const Auth = (props) => {
         });
     }
     const ignoreNotification = (notificationId) => {
-        axios.put(`http://localhost:8000/api/notifications/${ notificationId }/`, {
+        axios.put(`/api/notifications/${ notificationId }/`, {
             action: "ignore"
         }).then(data => {
             if (!data.data.success) return;
@@ -521,7 +521,7 @@ const Auth = (props) => {
     const onPartyInvite = (userId) => {
         console.log("PARTY INVITE");
 
-        axios.post("http://localhost:8000/api/notifications/", {
+        axios.post("/api/notifications/", {
             userId: userId,
             type: "partyinvite",
             partyCode: partyRef.current?.code

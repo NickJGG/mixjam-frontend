@@ -21,7 +21,7 @@ const Login = (props) => {
             
         };
 
-        axios.post('http://localhost:8000/auth/', { 
+        axios.post('/auth/', { 
             username: username, 
             password: password 
         })

@@ -41,12 +41,18 @@ class App extends React.Component {
         const { cookies } = this.props,
             token = cookies.get("auth_token");
 
-        this.setHeaders(token);
+        this.setupAxios(token);
         //this.setToken(token)
     }
 
     onAuth(token){
         this.setToken(token);
+    }
+
+    setupAxios(token){
+        axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+
+        this.setHeaders(token);
     }
 
     setToken(token){

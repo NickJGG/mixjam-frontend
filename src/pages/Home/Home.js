@@ -19,18 +19,8 @@ const Home = (props) => {
     const [topTracks, setTopTracks] = useState([]);
     const [topArtists, setTopArtists] = useState([]);
 
-    useEffect(() => {
-        fillData();
-    }, []);
-
-    const fillData = async () => {
+    useEffect(async () => {
         let rowLength = getRowLength();
-
-        let params = {
-            params: {
-                limit: rowLength
-            }
-        };
 
         let calls = [
             getRecentTracks(setRecentTracks, rowLength),
@@ -39,7 +29,7 @@ const Home = (props) => {
         ];
 
         await Promise.all(calls);
-    }
+    }, []);
 
     return (
         <Page key = "home" user = { props.user }>

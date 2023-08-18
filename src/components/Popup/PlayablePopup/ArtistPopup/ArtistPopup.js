@@ -1,7 +1,9 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState } from "react";
 
-import axios from 'axios';
-
+import getArtist from "lib/getArtist";
+import getArtistsSimilar from "lib/getArtistsSimilar";
+import getArtistsTopTracks from "lib/getArtistsTopTracks";
+import getArtistsAlbums from "lib/getArtistsAlbums";
 import getRowLength from "utils/getRowLength";
 
 import Block from "layout/Auth/Block/Block";
@@ -15,25 +17,17 @@ const ArtistPopup = (props) => {
     const [albums, setAlbums] = useState([]);
     const [artist, setArtist] = useState(props.artist);
 
-    useEffect(async (prevArtistId) => {
+    useEffect(async () => {
         setSimilarArtists([]);
         setTopTracks([]);
         setAlbums([]);
         setArtist(null);
 
         let calls = [
-            axios.get(`http://localhost:8000/api/artists/${ props.artist?.id }`).then(data => {
-                setArtist(data?.data);
-            }),
-            axios.get(`http://localhost:8000/api/artists/${ props.artist?.id }/similar`).then(data => {
-                setSimilarArtists(data?.data);
-            }),
-            axios.get(`http://localhost:8000/api/artists/${ props.artist?.id }/top`).then(data => {
-                setTopTracks(data?.data);
-            }),
-            axios.get(`http://localhost:8000/api/artists/${ props.artist?.id }/albums`).then(data => {
-                setAlbums(data?.data);
-            }),
+            getArtist(setArtist, props.artist?.id),
+            getArtistsSimilar(setSimilarArtists, props.artist?.id),
+            getArtistsTopTracks(setTopTracks, props.artist?.id),
+            getArtistsAlbums(setAlbums, props.artist?.id),
         ];
 
         await Promise.all(calls);

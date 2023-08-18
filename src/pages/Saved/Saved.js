@@ -51,40 +51,6 @@ const Saved = (props) => {
         setSelectedTypes(types?.filter(type => type.selected));
     }, [types]);
 
-    // const fillData = async () => {
-    //     let params = {
-    //         "limit": getRowLength()
-    //     };
-
-    //     let calls = [
-    //         axios.get(`http://localhost:8000/api/saved/`, { params: { "type": "tracks", ...params } }).then(data => {
-    //             // console.log(data.data.items);
-    //             setTracks(data?.data.items.map(item => {
-    //                 return {
-    //                     ...item["track"],
-    //                     "is_liked": true
-    //                 }
-    //             }));
-    //         }),
-    //         // axios.get(`http://localhost:8000/api/saved/`, { params: { "type": "artists" } }).then(data => {
-    //         //     setArtists(data?.data?.artists);
-    //         // }),
-    //         axios.get(`http://localhost:8000/api/saved/`, { params: { "type": "albums", ...params } }).then(data => {
-    //             setAlbums(data?.data.items.map(item => {
-    //                 return {
-    //                     ...item["album"],
-    //                     "is_liked": true
-    //                 }
-    //             }));
-    //         }),
-    //         // axios.get(`http://localhost:8000/api/saved/`, { params: { "type": "playlists" } }).then(data => {
-    //         //     setArtists(data?.data?.playlists);
-    //         // })
-    //     ];
-
-    //     await Promise.all(calls);
-    // }
-
     const getRequestTypes = () => {
         let mapping = {
             "tracks": tracks,
@@ -114,7 +80,7 @@ const Saved = (props) => {
         };
 
         for(let i = 0; i < requestTypes.length; i++){
-            calls.push(axios.get(`http://localhost:8000/api/saved/`,
+            calls.push(axios.get(`/api/saved/`,
                 {
                     params: {
                         "type": requestTypes[i],

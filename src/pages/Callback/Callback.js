@@ -11,7 +11,7 @@ const Callback = (props) => {
         let accessToken = searchParams.get('access_token');
         let refreshToken = searchParams.get('refresh_token');
 
-        axios.post('http://localhost:8000/api/connect/', {
+        axios.post('/api/connect/', {
             code: code,
             accessToken: accessToken,
             refreshToken: refreshToken

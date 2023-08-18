@@ -26,18 +26,14 @@ const PlayableListing = (props) => {
         addToQueue,
         playTrack,
         openPopupContainer,
-        previousPopup,
-        nextPopup,
+        getCurrentPlayingURI
     } = useContext(PageContext);
 
     const [pressing, setPressing] = useState(false);
     const [saved, setSaved] = useState(props.playable.liked);
 
     const isListening = () => {
-        if (props.currentlyPlayingURI)
-            return props.currentlyPlayingURI == props.playable.uri || props.currentlyPlayingContextURI == props.playable.uri;
-        
-        return false;
+        return getCurrentPlayingURI() == props.playable.uri || getCurrentPlayingURI() == props.playable.uri;
     }
 
     const getCoverImage = () => {
@@ -199,7 +195,7 @@ const PlayableListing = (props) => {
     }
 
     const onSave = () => {
-        axios.post("http://localhost:8000/api/save/tracks/", {
+        axios.post("/api/save/tracks/", {
             ids: props.playable.id,
             save: !saved
         }).then((data) => {
