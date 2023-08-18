@@ -83,7 +83,7 @@ const Auth = (props) => {
     useEffect(() => {
         if ("socket" in user || !("username" in user)) return;
 
-        let socketObj = new Socket(`ws://localhost:8000/ws/u/${ user.username }?token=${ auth.token }`, () => {
+        let socketObj = new Socket(`${process.env.REACT_APP_BASE_URL_WS}/u/${ user.username }?token=${ auth.token }`, () => {
                         socketObj.send('get_state');
                     }, () => {}, onMessage);
         
@@ -329,7 +329,7 @@ const Auth = (props) => {
         }));
     }
     const connectToParty = (newParty) => {
-        let socketObj = new Socket(`ws://localhost:8000/ws/p/${ newParty.code }?token=${ auth.token }`, () => {
+        let socketObj = new Socket(`${REACT_APP_BASE_URL_WS}/p/${ newParty.code }?token=${ auth.token }`, () => {
             setParty({
                 ...newParty,
                 socket: socketObj,
