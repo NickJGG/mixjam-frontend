@@ -9,18 +9,18 @@ const AccountSettingsPopup = (props) => {
     console.log(props.user);
 
     const actionConnect = () => {
-        if (props.user?.profile?.authorized)
-            return (
-                <p className = { cssFromArray([
-                    SettingsPopupCSS["setting__action__status"],
-                    SettingsPopupCSS["setting__action__status--success"],
-                ])}>Connected</p>
-            );
+        // if (props.user?.profile?.authorized)
+        //     return (
+        //         <p className = { cssFromArray([
+        //             SettingsPopupCSS["setting__action__status"],
+        //             SettingsPopupCSS["setting__action__status--success"],
+        //         ])}>Connected</p>
+        //     );
         
         return (
             <LayoutButton
                 label = { props.user?.profile?.authorized ? "Connected" : "Connect" }
-                url = "https://accounts.spotify.com/authorize?response_type=code&client_id=e6a99e3eb8a348f9a4b03d7b106ce150&scope=user-library-modify+user-follow-read+streaming+app-remote-control+user-modify-playback-state+user-read-currently-playing+playlist-read-private+playlist-read-collaborative+user-read-playback-state+user-read-recently-played+user-top-read+user-library-read&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fcallback%2F&state=null"
+                url = { `https://accounts.spotify.com/authorize?response_type=code&client_id=e6a99e3eb8a348f9a4b03d7b106ce150&scope=user-library-modify+user-follow-read+streaming+app-remote-control+user-modify-playback-state+user-read-currently-playing+playlist-read-private+playlist-read-collaborative+user-read-playback-state+user-read-recently-played+user-top-read+user-library-read&redirect_uri=https%3A%2F%2F${window.location.hostname}%2Fcallback%2F&state=null` }
             />
         );
     }
