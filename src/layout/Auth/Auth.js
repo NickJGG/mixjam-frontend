@@ -329,7 +329,7 @@ const Auth = (props) => {
         }));
     }
     const connectToParty = (newParty) => {
-        let socketObj = new Socket(`${REACT_APP_BASE_URL_WS}/p/${ newParty.code }?token=${ auth.token }`, () => {
+        let socketObj = new Socket(`${process.env.REACT_APP_BASE_URL_WS}/p/${ newParty.code }?token=${ auth.token }`, () => {
             setParty({
                 ...newParty,
                 socket: socketObj,
