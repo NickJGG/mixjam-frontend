@@ -24,7 +24,7 @@ const Profile = (props) => {
     useEffect(() => {
         if (props.user && username == null) return;
         
-        axios.get(`/api/user/${ username }`)
+        axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/${ username }`)
             .then(data => {
                 if (data.data.success == false) return;
 

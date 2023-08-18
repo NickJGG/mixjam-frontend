@@ -11,7 +11,7 @@ const Callback = (props) => {
         let accessToken = searchParams.get('access_token');
         let refreshToken = searchParams.get('refresh_token');
 
-        axios.post('/api/connect/', {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/api/connect/`, {
             code: code,
             accessToken: accessToken,
             refreshToken: refreshToken

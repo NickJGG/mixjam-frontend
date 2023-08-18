@@ -21,7 +21,7 @@ const Login = (props) => {
             
         };
 
-        axios.post('/auth/', { 
+        axios.post(`${process.env.REACT_APP_BASE_URL}/auth/`, { 
             username: username, 
             password: password 
         })

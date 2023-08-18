@@ -195,7 +195,7 @@ const PlayableListing = (props) => {
     }
 
     const onSave = () => {
-        axios.post("/api/save/tracks/", {
+        axios.post(`${process.env.REACT_APP_BASE_URL}/api/save/tracks/`, {
             ids: props.playable.id,
             save: !saved
         }).then((data) => {

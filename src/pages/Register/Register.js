@@ -19,7 +19,7 @@ const Register = (props) => {
             
         };
 
-        axios.post('/register/', { 
+        axios.post(`${process.env.REACT_APP_BASE_URL}/register/`, { 
             username: username, 
             password: password 
         })
@@ -27,7 +27,7 @@ const Register = (props) => {
                 console.log(data);
 
                 if (data.status == 201){
-                    axios.post('/auth/', { 
+                    axios.post(`${process.env.REACT_APP_BASE_URL}/auth/`, { 
                         username: username, 
                         password: password 
                     })

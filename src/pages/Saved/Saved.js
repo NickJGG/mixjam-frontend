@@ -80,7 +80,7 @@ const Saved = (props) => {
         };
 
         for(let i = 0; i < requestTypes.length; i++){
-            calls.push(axios.get(`/api/saved/`,
+            calls.push(axios.get(`${process.env.REACT_APP_BASE_URL}/api/saved/`,
                 {
                     params: {
                         "type": requestTypes[i],
