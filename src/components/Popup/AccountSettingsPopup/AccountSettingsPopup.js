@@ -9,13 +9,13 @@ const AccountSettingsPopup = (props) => {
     console.log(props.user);
 
     const actionConnect = () => {
-        // if (props.user?.profile?.authorized)
-        //     return (
-        //         <p className = { cssFromArray([
-        //             SettingsPopupCSS["setting__action__status"],
-        //             SettingsPopupCSS["setting__action__status--success"],
-        //         ])}>Connected</p>
-        //     );
+        if (props.user?.profile?.authorized)
+            return (
+                <p className = { cssFromArray([
+                    SettingsPopupCSS["setting__action__status"],
+                    SettingsPopupCSS["setting__action__status--success"],
+                ])}>Connected</p>
+            );
         
         return (
             <LayoutButton
