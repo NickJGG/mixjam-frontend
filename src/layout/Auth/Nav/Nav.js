@@ -107,7 +107,7 @@ const Nav = (props) => {
                         image = { imgSettings }
                         popupElement = { (
                             <AccountSettingsPopup 
-                                key = "notification-popup"
+                                key = "account-settings-popup"
                                 user = { props.user } 
                                 onNotificationAccept = { props.onNotificationAccept }
                                 onNotificationIgnore = { props.onNotificationIgnore }

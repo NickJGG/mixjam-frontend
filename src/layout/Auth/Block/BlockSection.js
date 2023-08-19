@@ -21,7 +21,6 @@ const BlockSection = (props) => {
 
     const getBody = () => {
         if (props.playables != undefined && props.playables.length != 0){
-            console.log(props.playables);
             return props.playables?.map(playable => (
                 <PlayableListing 
                     key = { `listing-${ playable.name }` }

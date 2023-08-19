@@ -83,6 +83,8 @@ const Auth = (props) => {
     useEffect(() => {
         if ("socket" in user || !("username" in user)) return;
 
+        console.log(`${process.env.REACT_APP_BASE_URL_WS}/u/${ user.username }?token=${ auth.token }`);
+
         let socketObj = new Socket(`${process.env.REACT_APP_BASE_URL_WS}/u/${ user.username }?token=${ auth.token }`, () => {
                         socketObj.send('get_state');
                     }, () => {}, onMessage);
@@ -195,11 +197,35 @@ const Auth = (props) => {
         }));
     }
     const updatePopupContainer = (element) => {
-        if (popupContainer.elements[popupContainer.currentElementIndex]?.key != element.key) return;
+        let elementKey = element.key,
+            currentElement = popupContainer.elements[popupContainer.currentElementIndex];
+
+        let currentElementKey = currentElement?.props?.children?.key;
+
+        if (currentElementKey != elementKey) return;
+
+        element = (
+            <PageContext.Provider value = {{
+                getCurrentlyPlayingType,
+                getCurrentPlayingURI,
+                getCurrentlyPlayingContextURI,
+                addToQueue,
+                playTrack,
+                playContext,
+                openPopupContainer,
+                closePopupContainer,
+                updatePopupContainer,
+                previousPopup,
+                nextPopup,
+                popupContainerRef,
+            }}>
+                { element }
+            </PageContext.Provider>
+        );
 
         setPopupContainer(prevPopupContainer => ({
             ...prevPopupContainer,
-            elements: prevPopupContainer.elements.slice(0, prevPopupContainer.currentElementIndex - 1).concat([element]),
+            elements: prevPopupContainer.elements.map(e => e?.props?.children?.key == elementKey ? element : e),
         }));
 
         // openPopupContainer(element, popupContainer.isOpen);
@@ -246,7 +272,7 @@ const Auth = (props) => {
     const onMessage = (message) => {
         let data = message.data;
 
-        // console.log(data);
+        console.log(data);
 
         if ("playback" in data)
             updatePlayback(data.playback);
@@ -255,7 +281,7 @@ const Auth = (props) => {
             updateParty(data.party);
         
         if ("join_party" in data)
-            connectToParty(data.join_party);
+            connectToParty(data.party);
         
         if ("notification" in data)
             addNotification(data.notification);
