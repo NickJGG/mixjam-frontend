@@ -18,7 +18,14 @@ const Callback = (props) => {
         })
         .then(data => {
             console.log(data);
+            
             setRedirect(true);
+
+            if (data.data.success)
+                props.setUser(prevUser => ({
+                    ...prevUser,
+                    ...data.data.user
+                }));
         });
     }, []);
 

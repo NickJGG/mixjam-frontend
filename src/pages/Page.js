@@ -28,7 +28,7 @@ const Page = (props) => {
                     <LayoutButton
                         label = "Connect"
                         default = { true }
-                        url = { `https://accounts.spotify.com/authorize?response_type=code&client_id=e6a99e3eb8a348f9a4b03d7b106ce150&scope=user-library-modify+user-follow-read+streaming+app-remote-control+user-modify-playback-state+user-read-currently-playing+playlist-read-private+playlist-read-collaborative+user-read-playback-state+user-read-recently-played+user-top-read+user-library-read&redirect_uri=https%3A%2F%2F${window.location.hostname}%2Fcallback%2F&state=null` }
+                        url = { `https://accounts.spotify.com/authorize?response_type=code&client_id=e6a99e3eb8a348f9a4b03d7b106ce150&scope=user-library-modify+user-follow-read+streaming+app-remote-control+user-modify-playback-state+user-read-currently-playing+playlist-read-private+playlist-read-collaborative+user-read-playback-state+user-read-recently-played+user-top-read+user-library-read&redirect_uri=${encodeURIComponent(process.env.REACT_APP_SPOTIFY_REDIRECT_BASE_URL)}%2Fcallback%2F&state=null` }
                     />
                 </>
             }

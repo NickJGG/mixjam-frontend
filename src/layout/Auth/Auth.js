@@ -666,7 +666,7 @@ const Auth = (props) => {
                         <Route path = "/discussion" element = { <Discussion user = { user } /> } />
                         <Route path = "/me" element = { <Profile user = { user } /> } />
                         <Route path = "/user/:username" element = { <Profile /> } />
-                        <Route path = "/callback/" element = { <Callback /> } />
+                        <Route path = "/callback/" element = { <Callback setUser = {setUser} /> } />
                         <Route path = "*" element = {<Navigate to = "/" />} />
                     </Routes>
 
