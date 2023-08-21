@@ -1,0 +1,35 @@
+.setting{
+    width: 100%;
+
+    display: grid;
+    grid-template-areas: "info actions"
+                         "group group";
+    grid-template-columns: 1fr auto;
+    grid-gap: 2rem;
+}
+.setting > *:not(.setting__info):not(.setting__actions){ padding-left: 1rem; }
+.setting--disabled{ opacity: .4; pointer-events: none;}
+.setting__info{
+    display: flex;
+    flex-direction: column;
+    grid-gap: .2rem;
+    grid-area: info;
+}
+.setting__info__label{
+    font-weight: 500;
+}
+
+.setting__info__desc{
+    font-size: .8rem;
+    color: #aaa;
+}
+.setting__actions{
+    grid-area: actions;
+}
+.setting__action__status{
+    padding: .7rem;
+
+    font-size: .9rem;
+    font-weight: 500;
+}
+.setting__action__status--success{ color: var(--green); }

@@ -1,0 +1,27 @@
+.setting__group{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    grid-gap: 1rem;
+    grid-area: group;
+}
+.setting__group--disabled{
+    opacity: .4;
+
+    pointer-events: none;
+}
+.setting__group__label{
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+
+    /* display: none; */
+}
+
+.setting__group__settings{
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+}

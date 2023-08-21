@@ -10,6 +10,8 @@ import axios from 'axios';
 import PageContext from "contexts/PageContext";
 
 import Socket from 'utils/socket';
+import getCookie from "utils/getCookie";
+import setCookie from "utils/setCookie";
 
 import Nav from "./Nav/Nav";
 
@@ -48,8 +50,11 @@ const Auth = (props) => {
     const [auth, setAuth] = useState(props.auth);
     const [user, setUser] = useState({});
     const [player, setPlayer] = useState(defaultPlayback);
-    const [playback, setPlayback] = useState({});
-    const [party, setParty, partyRef] = useState(defaultPlayback);
+    const [playback, setPlayback, playbackRef] = useState({});
+    const [party, setParty, partyRef] = useState({
+        ...defaultPlayback,
+        users: [],
+    });
     const [popupContainer, setPopupContainer, popupContainerRef] = useState({
         elements: [],
         currentElementIndex: -1,
@@ -62,6 +67,7 @@ const Auth = (props) => {
 
         setHeaders(token);
         setToken(token);
+        setCookies();
 
         axios.get(`${process.env.REACT_APP_BASE_URL}/api/self/`)
             .then(data => {
@@ -77,7 +83,8 @@ const Auth = (props) => {
 
                 if (e.status == 401)
                     removeToken();
-            });
+            }
+        );
     }, []);
 
     useEffect(() => {
@@ -149,6 +156,102 @@ const Auth = (props) => {
         axios.defaults.headers.common = {
             Authorization: null
         };
+    }
+
+    const setCookies = () => {
+        let cookies = ["tts", "tts_playback", "tts_party"];
+
+        cookies.forEach(cookie => {
+            if (getCookie(props.cookies, cookie) === undefined)
+                setCookie(props.cookies, cookie, false);
+        });
+    }
+
+    const speak = (text, type) => {
+        // var msg = new SpeechSynthesisUtterance();
+        // msg.text = text;
+
+        // window.speechSynthesis.speak(msg);
+
+        if (props.cookies.get('tts') === "false") return;
+        if (props.cookies.get(`tts_${ type }`) === "false") return;
+
+        let delay = 1000;
+
+        if (delay === void 0) {
+            delay = 0;
+        }
+        
+        if (text.length > 0) {
+            var speechUtteranceChunker = function (utt, settings, callback) {
+                settings = settings || {};
+                var newUtt;
+                var txt = (settings && settings.offset !== undefined ? utt.text.substring(settings.offset) : utt.text);
+                if (utt.voice && utt.voice.voiceURI === 'native') { // Not part of the spec
+                    newUtt = utt;
+                    newUtt.text = txt;
+                    newUtt.volume = utt.volume;
+                    newUtt.addEventListener('end', function () {
+                        if (speechUtteranceChunker.cancel) {
+                            speechUtteranceChunker.cancel = false;
+                        }
+                        if (callback !== undefined) {
+                            callback();
+                        }
+                    });
+                }
+                else {
+                    var chunkLength = (settings && settings.chunkLength) || 160;
+                    var pattRegex = new RegExp('^[\\s\\S]{' + Math.floor(chunkLength / 2) + ',' + chunkLength + '}[.!?,]{1}|^[\\s\\S]{1,' + chunkLength + '}$|^[\\s\\S]{1,' + chunkLength + '} ');
+                    var chunkArr = txt.match(pattRegex);
+            
+                    if (chunkArr[0] === undefined || chunkArr[0].length <= 2) {
+                        //call once all text has been spoken...
+                        if (callback !== undefined) {
+                            callback();
+                        }
+                        return;
+                    }
+                    var chunk = chunkArr[0];
+                    newUtt = new SpeechSynthesisUtterance(chunk);
+                    newUtt.volume = utt.volume;
+                    newUtt.voice = utt.voice;
+                    var x;
+                    for (x in utt) {
+                        if (utt.hasOwnProperty(x) && x !== 'text') {
+                            newUtt[x] = utt[x];
+                        }
+                    }
+                    newUtt.addEventListener('end', function () {
+                        if (speechUtteranceChunker.cancel) {
+                            speechUtteranceChunker.cancel = false;
+                            return;
+                        }
+                        settings.offset = settings.offset || 0;
+                        settings.offset += chunk.length - 1;
+                        speechUtteranceChunker(utt, settings, callback);
+                    });
+                }
+            
+                if (settings.modifier) {
+                    settings.modifier(newUtt);
+                }
+                console.log(newUtt); //IMPORTANT!! Do not remove: Logging the object out fixes some onend firing issues.
+                //placing the speak invocation inside a callback fixes ordering and onend issues.
+                setTimeout(function () {
+                    speechSynthesis.speak(newUtt);
+                }, 0);
+            };
+
+            var utterance = new SpeechSynthesisUtterance(text);
+            var voiceArr = speechSynthesis.getVoices();
+            utterance.voice = voiceArr[0];
+            utterance.volume = .5;
+
+            speechUtteranceChunker(utterance, {
+                chunkLength: 120
+            }, function () {});
+        }
     }
 
     // #endregion
@@ -302,6 +405,10 @@ const Auth = (props) => {
         
         song = updatedPlayback?.item;
 
+        if (playbackRef.current.item?.name !== updatedPlayback.item?.name){
+            speak(`${song.name} by ${song.artists[0]?.name}`, "playback");
+        }
+
         let i, artists = [];
 
         for (i = 0; i < song?.artists.length; i++){
@@ -349,6 +456,15 @@ const Auth = (props) => {
         }));
     }
     const updateParty = (updatedParty) => {
+        if ('users' in party) {
+            updatedParty.users.filter(user => !party.users.includes(user)).forEach(user => {
+                speak(`${user.username} joined the party`, "party");
+            });
+            party.users.filter(user => !updatedParty.users.includes(user)).forEach(user => {
+                speak(`${user.username} left the party`, "party");
+            });
+        }
+
         setParty(prevParty => ({
             ...prevParty,
             ...updatedParty
