@@ -405,7 +405,7 @@ const Auth = (props) => {
         
         song = updatedPlayback?.item;
 
-        if (playbackRef.current.item?.name !== updatedPlayback.item?.name){
+        if (playbackRef.current.item?.name !== song?.name){
             speak(`${song.name} by ${song.artists[0]?.name}`, "playback");
         }
 
@@ -456,11 +456,13 @@ const Auth = (props) => {
         }));
     }
     const updateParty = (updatedParty) => {
-        if ('users' in party) {
-            updatedParty.users.filter(user => !party.users.includes(user)).forEach(user => {
+        if ('users' in partyRef.current) {
+            if (partyRef.current.users.length == 0) return;
+
+            updatedParty.users.filter(user => !partyRef.current.users.map(user => user.username).includes(user.username)).forEach(user => {
                 speak(`${user.username} joined the party`, "party");
             });
-            party.users.filter(user => !updatedParty.users.includes(user)).forEach(user => {
+            partyRef.current.users.filter(user => !updatedParty.users.map(user => user.username).includes(user.username)).forEach(user => {
                 speak(`${user.username} left the party`, "party");
             });
         }
