@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import cssFromArray from "utils/cssFromArray";
+import timeSince from "utils/timeSince";
 
 import HoverExpandable from "components/HoverExpandable/HoverExpandable";
 import ProfilePicture from "components/ProfilePicture";
@@ -42,7 +43,7 @@ const Notification = (props) => {
                                 <p className = { NotificationCSS["tag__name"] }>Party</p>
                             </div>
                         </div>
-                        <p className = { NotificationCSS["time"] }>5m</p>
+                        <p className = { NotificationCSS["time"] }>{ timeSince(props.notification?.notification.time_sent) }</p>
                     </div>
                     
                     <div className = { NotificationCSS["sender"] }>

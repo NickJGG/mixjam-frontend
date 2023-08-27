@@ -83,6 +83,7 @@ const Nav = (props) => {
                     />
                     <NavButton label = { `Notifications • ${ props.user?.notifications?.length || 0 }` } 
                         image = { imgNotification }
+                        badge = { props.user?.notifications?.length }
                         popupElement = { (
                             <NotificationsPopup 
                                 key = "notification-popup"

@@ -58,9 +58,18 @@ const NavButton = (props) => {
     }
 
     const getButton = () => {
+        console.log(props.badge);
         let buttonElement = (
             <div className = { cssButton() }>
-                <img src = { props.image } />
+                <div className = { NavCSS["nav__button__image__wrapper"] }>
+                    <img src = { props.image } />
+
+                    { 
+                        props.badge == undefined || props.badge < 1 ?
+                        <></> : 
+                        <div className = { NavCSS["nav__button__image__badge"] }>{ props.badge }</div> 
+                    }
+                </div>
                 { props.hideLabel ? <></> : <p>{ props.label }</p> }
                 <img src = { imgCollapse } />
             </div>
