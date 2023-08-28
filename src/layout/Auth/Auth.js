@@ -410,7 +410,7 @@ const Auth = (props) => {
         song = updatedPlayback?.item;
 
         if (playbackRef.current.item?.name !== song?.name){
-            speak(`${song.name} by ${song.artists[0]?.name}`, "playback");
+            speak(`${song?.name} by ${song?.artists[0]?.name}`, "playback");
         }
 
         let i, artists = [];
