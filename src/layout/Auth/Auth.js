@@ -26,6 +26,10 @@ import Saved from "pages/Saved/Saved";
 import Discover from "pages/Discover/Discover";
 import Discussion from "pages/Discussion/Discussion";
 import Profile from "pages/Profile/Profile";
+import Tracks from "pages/Saved/Tracks/Tracks";
+import Playlists from "pages/Saved/Playlists/Playlists";
+import Albums from "pages/Saved/Albums/Albums";
+import Artists from "pages/Saved/Artists/Artists";
 
 import AuthCSS from "./Auth.module.css";
 import NavCSS from "./Nav/Nav.module.css";
@@ -780,6 +784,10 @@ const Auth = (props) => {
                         <Route exact path = "/" element = { <Home user = { user } /> } />
                         <Route path = "/search" element = { <Search user = { user } /> } />
                         <Route path = "/saved" element = { <Saved user = { user } /> } />
+                        <Route path = "/saved/tracks" element = { <Tracks user = { user } /> } />
+                        <Route path = "/saved/playlists" element = { <Playlists user = { user } /> } />
+                        <Route path = "/saved/albums" element = { <Albums user = { user } /> } />
+                        <Route path = "/saved/artists" element = { <Artists user = { user } /> } />
                         <Route path = "/discover" element = { <Discover user = { user } /> } />
                         <Route path = "/discussion" element = { <Discussion user = { user } /> } />
                         <Route path = "/me" element = { <Profile user = { user } /> } />

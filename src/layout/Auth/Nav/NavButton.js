@@ -39,7 +39,7 @@ const NavButton = (props) => {
                 NavCSS["nav__button--active"],
             ]);
         
-        if (props.buttons != null) classes.push(NavCSS["nav__button--expando"]);
+        if (props.children != null) classes.push(NavCSS["nav__button--expando"]);
         if (props.color != null) classes.push(cssGradientBg[`gradient-bg--${ props.color }`]);
         if (props.short) classes.push(NavCSS["nav__button--short"]);
         if (props.default) classes.push(cssGradientBg["gradient-bg--default"]);
@@ -58,7 +58,6 @@ const NavButton = (props) => {
     }
 
     const getButton = () => {
-        console.log(props.badge);
         let buttonElement = (
             <div className = { cssButton() }>
                 <div className = { NavCSS["nav__button__image__wrapper"] }>
@@ -89,24 +88,28 @@ const NavButton = (props) => {
     }
 
     const getExpandoButtons = () => {
-        if (props.buttons == null)
+        if (props.children == null)
             return (null);
 
         return (
             <div className = { NavCSS["nav__button__wrapper__buttons"] }>
-                { props.buttons?.map(button => (
-                    <NavButton 
-                        key = { button.name }
-                        button = { button }
-                    />
-                )) }
+                { props.children }
             </div>
         );
     }
 
     const isActive = () => {
+        if (props.children != null)
+            console.log(props.children);
+
         if (props.activeCondition) return props.activeCondition;
         if (props.params) return location.pathname == props.url && location.state.type == props.params.type;
+
+        if (props.children != null) {
+            let eligibleChildren = props.children?.filter(child => child.props.url == location.pathname);
+
+            if (eligibleChildren.length > 0) return !expanded;
+        }
         
         return location.pathname == props.url;
     }
@@ -114,7 +117,7 @@ const NavButton = (props) => {
     const onClick = (e) => {
         e.stopPropagation();
 
-        if (props.buttons != null)
+        if (props.children != null)
             setExpanded(!expanded);
 
         if (props.popupElement)

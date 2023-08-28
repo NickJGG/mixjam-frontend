@@ -22,13 +22,12 @@ const Notification = (props) => {
 
     return (
         <HoverExpandable 
-            classes = { 
-                NotificationCSS["container"]
-            }
+            classes = { cssFromArray([
+                NotificationCSS["container"],
+            ].concat(props.classes)) }
             wrapperClasses = { cssFromArray([
-                NotificationCSS["wrapper"],
-                
-            ]) }
+                NotificationCSS["wrapper"],  
+            ].concat(props.wrapperClasses)) }
             gradientBg = { true }
             color = { color }
             expanded = { props.expanded }

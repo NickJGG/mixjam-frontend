@@ -14,7 +14,7 @@ const NotificationsPopup = (props) => {
                     { props.notifications?.map(notification => (
                         <Notification 
                             key = { notification.id }
-                            defaultColor = "red"
+                            defaultColor = "blue"
                             notification = { notification }
                             onAccept = { props.onNotificationAccept }
                             onIgnore = { props.onNotificationIgnore }

@@ -13,7 +13,7 @@ const FriendsPopup = (props) => {
                         <PopupUserListFriend 
                             key = { friend.username }
                             friend = { friend }
-                            defaultColor = "red"
+                            defaultColor = "blue"
 
                             onPartyInvite = { props.onPartyInvite }
                         />

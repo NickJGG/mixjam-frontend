@@ -17,6 +17,10 @@ import imgParty from "assets/img/icons/musicrecord-white-outline-96.png";
 import imgFriends from "assets/img/icons/people-white-outline-96.png";
 import imgSearch from "assets/img/icons/search-white-outline-96.png";
 import imgSettings from "assets/img/icons/settings-white-outline-96.png";
+import imgTrack from "assets/img/icons/song-white-outline-96.png";
+import imgPlaylist from "assets/img/icons/playlist-white-outline-96.png";
+import imgAlbum from "assets/img/icons/album-white-outline-96.png";
+import imgArtist from "assets/img/icons/artist-white-outline-96.png";
 
 import imgCollapse from "assets/img/icons/collapse-white-outline-96.png";
 import imgNotification from "assets/img/icons/notification-white-outline-96.png";
@@ -44,7 +48,12 @@ const Nav = (props) => {
                 <NavSectionCollection label = "General" hideLabel = { true }>
                     <NavButton label = "Home" image = { imgHome } url = "/" />
                     <NavButton label = "Search" image = { imgSearch } url = "/search/" />
-                    <NavButton label = "Saved" image = { imgSave } url = "/saved/" />
+                    <NavButton label = "Saved" image = { imgSave }>
+                        <NavButton label = "Tracks" image = { imgTrack } url = "/saved/tracks/" />
+                        <NavButton label = "Playlists" image = { imgPlaylist } url = "/saved/playlists/" />
+                        <NavButton label = "Albums" image = { imgAlbum } url = "/saved/albums/" />
+                        <NavButton label = "Artists" image = { imgArtist } url = "/saved/artists/" />
+                    </NavButton>
                 </NavSectionCollection>
                 <NavSectionCollection label = "Discover" hideLabel = { true }>
                     <NavButton label = "Discover" image = { imgDiscover } url = "/discover/" />

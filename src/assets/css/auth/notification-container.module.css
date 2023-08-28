@@ -2,15 +2,16 @@
     width: calc(20rem + 2rem);
 
     position: absolute;
-    bottom: calc(var(--player-height) + 5rem);
-    left: 1.2rem;
+    bottom: calc(var(--player-height) + 3rem);
+    left: 2rem;
 
     z-index: 20;
 }
-#notification-container > .notification{ top: 0; }
+.notification{ top: 0; }
+.notification__wrapper{ box-shadow: 0px 0px 15px rgb(8, 8, 8); }
 .notification-container--removing > .notification{
     top: 50vh;
 
     transition: top .4s ease-in;
 }
-#notification-container .notification__wrapper{ position: unset !important; }
+/* #notification-container .notification__wrapper{ position: unset !important; } */

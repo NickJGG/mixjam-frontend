@@ -188,7 +188,7 @@ const PlayableListing = (props) => {
     const getArtistImage = () => {
         switch (props.playable.type) {
             case "artist":
-                return props.playable.images[0].url;
+                return props.playable.images[0]?.url;
             default:
                 return props.playable.artists[0]?.images[0].url;
         }

@@ -163,7 +163,7 @@
     transition: transform .1s ease;
 }
 .nav__button__wrapper--reverse .nav__button--expando img:last-of-type{ transform: rotate(90deg); }
-.nav__button__wrapper--expanded > .nav__button--expando img:last-of-type{ transform: rotate(90deg); }
+.nav__button__wrapper--expanded > .nav__button--expando > img:last-of-type{ transform: rotate(90deg); }
 .nav__button__wrapper--reverse.nav__button__wrapper--expanded > .nav__button--expando img:last-of-type{ transform: rotate(270deg); }
 
 .nav__button--short > .nav__button__image__wrapper{ width: .8rem; height: .8rem; margin-right: 0; }

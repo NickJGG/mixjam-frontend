@@ -17,10 +17,9 @@ const NotificationContainer = (props) => {
     useEffect(() => {
         let newCount = props.notifications?.length ?? 0;
 
-        console.log(count, "->", newCount);
+        // console.log(count, "->", newCount);
 
         setNotification(newCount > count ? props.notifications[0] : null);
-        
         setCount(newCount);
     }, [props.notifications]);
 
@@ -58,8 +57,10 @@ const NotificationContainer = (props) => {
                 <Notification 
                     key = { notification.id }
                     classes = { cssNotificationContainer["notification"] }
-                    defaultColor = "red"
-                    expanded = { true }
+                    wrapperClasses = { cssNotificationContainer["notification__wrapper"] }
+                    defaultColor = "blue"
+                    active = { true }
+                    // expanded = { true }
                     notification = { notification }
                     onAccept = { props.onNotificationAccept }
                     onIgnore = { props.onNotificationIgnore }
